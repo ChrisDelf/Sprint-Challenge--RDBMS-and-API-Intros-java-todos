@@ -13,21 +13,21 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service(value="TodoService")
+@Service(value = "TodoService")
 public class TodoServiceImpl implements TodoService {
     @Autowired
     private TodoRepository todorepo;
 
     @Override
     public List<Todo> findAll() {
-        List<Todo> list=new ArrayList<>();
+        List<Todo> list = new ArrayList<>();
         todorepo.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
     @Override
     public Todo findTodoById(long id) {
-        return todorepo.findById(id).orElseThrow(()-> new EntityNotFoundException(Long.toString(id)));
+        return todorepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
 
     @Override
@@ -35,21 +35,21 @@ public class TodoServiceImpl implements TodoService {
         List<Todo> list = new ArrayList<>();
         todorepo.findAll().iterator().forEachRemaining(list::add);
 
-        list.removeIf(todo->!todo.getUser().getUsername().equalsIgnoreCase(username));
+        list.removeIf(todo -> !todo.getUser().getUsername().equalsIgnoreCase(username));
         return list;
     }
 
     @Transactional
     @Override
     public void delete(long id) {
-        if(todorepo.findById(id).isPresent()){
+        if (todorepo.findById(id).isPresent()) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if(todorepo.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName())){
+            if (todorepo.findById(id).get().getUser().getUsername().equalsIgnoreCase(authentication.getName())) {
                 todorepo.deleteById(id);
-            }else{
+            } else {
                 throw new EntityNotFoundException(Long.toString(id) + " " + authentication.getName());
             }
-        }else{
+        } else {
             throw new EntityNotFoundException(Long.toString(id));
         }
     }
@@ -63,15 +63,14 @@ public class TodoServiceImpl implements TodoService {
     @Transactional
     @Override
     public Todo update(Todo todo, long id) {
-        Todo newTodo = todorepo.findById(id).orElseThrow(()->new EntityNotFoundException(Long.toString(id)));
-        if(todo.getDescription()!=null)
+        Todo newTodo = todorepo.findById(id).orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+        if (todo.getDescription() != null)
             newTodo.setDescription(todo.getDescription());
-        if(todo.getUser()!=null)
+        if (todo.getUser() != null)
             newTodo.setUser(todo.getUser());
-        if(todo.getDatestarted()!=null)
+        if (todo.getDatestarted() != null)
             newTodo.setDatestarted(todo.getDatestarted());
-        if(todo.isCompleted()!= null);
-            newTodo.setCompleted(todo.isCompleted());
+        newTodo.setCompleted(todo.isCompleted());
         return todorepo.save(newTodo);
 
     }

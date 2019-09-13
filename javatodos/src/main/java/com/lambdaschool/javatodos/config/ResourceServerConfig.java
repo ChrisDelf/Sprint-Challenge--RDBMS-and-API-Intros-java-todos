@@ -33,6 +33,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/webjars/**").permitAll()
                 .antMatchers("/users/mine").authenticated()
                 .antMatchers(HttpMethod.POST, "/users/").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/userid/*").hasAnyRole("ADMIN")
                 .antMatchers("/users/**").hasAnyRole("USER")
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
         http.csrf().disable();
