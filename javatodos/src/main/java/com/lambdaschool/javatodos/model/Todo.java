@@ -15,8 +15,8 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long todoid;
 
-//    @Column(nullable = false)
-    private String todos;
+    @Column(nullable = false)
+    private String description;
 
     private Date datestarted;
     private boolean completed;
@@ -30,8 +30,8 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(String todos, Date datestarted,  User user) {
-        this.todos = todos;
+    public Todo(String description, Date datestarted,  User user) {
+        this.description = description;
         this.datestarted = datestarted;
         this.completed = false;
         this.user = user;
@@ -53,12 +53,12 @@ public class Todo {
         this.todoid = todoid;
     }
 
-    public String getTodos() {
-        return todos;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTodos(String todos) {
-        this.todos = todos;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {

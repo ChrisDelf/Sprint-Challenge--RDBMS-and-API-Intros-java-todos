@@ -1,6 +1,7 @@
 package com.lambdaschool.javatodos.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -30,11 +31,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**").permitAll()
-                .antMatchers("/zoos/**", "/animals/**", "/admin/**").authenticated()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/users/**").hasAnyRole("ADMIN")
-                .antMatchers("/zoos/**").hasAnyRole("ADMIN", "MGR", "ZOODATA")
-                .antMatchers("/animals/**").hasAnyRole("ADMIN", "MGR", "ANIMALDATA")
+                .antMatchers("/users/mine").authenticated()
+                .antMatchers(HttpMethod.POST, "/users").hasAnyRole("ADMIN")
+                .antMatchers("/users/**").hasAnyRole("USER")
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
         http.csrf().disable();
         http.headers().frameOptions().disable();
