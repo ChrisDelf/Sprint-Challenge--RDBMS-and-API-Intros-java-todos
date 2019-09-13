@@ -15,7 +15,7 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long todoid;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String todos;
 
     private Date datestarted;
@@ -33,7 +33,16 @@ public class Todo {
     public Todo(String todos, Date datestarted,  User user) {
         this.todos = todos;
         this.datestarted = datestarted;
+        this.completed = false;
         this.user = user;
+    }
+
+    public Date getDatestarted() {
+        return datestarted;
+    }
+
+    public void setDatestarted(Date datestarted) {
+        this.datestarted = datestarted;
     }
 
     public long getTodoid() {
@@ -60,4 +69,11 @@ public class Todo {
         this.user = user;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
 }

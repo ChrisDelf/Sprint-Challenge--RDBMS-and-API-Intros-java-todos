@@ -1,6 +1,7 @@
 package com.lambdaschool.javatodos.service;
 
 
+import com.lambdaschool.javatodos.model.Todo;
 import com.lambdaschool.javatodos.model.User;
 import com.lambdaschool.javatodos.model.UserRoles;
 import com.lambdaschool.javatodos.repository.RoleRepository;
@@ -128,5 +129,11 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
 
         return userrepos.save(currentUser);
+    }
+
+    @Override
+    public User newTodo(User user, Todo todo) {
+        user.getTodos().add(todo);
+        return user;
     }
 }

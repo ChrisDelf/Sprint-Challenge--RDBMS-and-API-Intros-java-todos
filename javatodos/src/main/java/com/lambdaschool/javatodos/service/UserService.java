@@ -2,6 +2,7 @@ package com.lambdaschool.javatodos.service;
 
 
 
+import com.lambdaschool.javatodos.model.Todo;
 import com.lambdaschool.javatodos.model.User;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface UserService {
     User save(User user);
 
     User update(User user, long id);
+
+    User newTodo(User user, Todo todo);
 }

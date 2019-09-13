@@ -23,11 +23,14 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+
+
+
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private TodoService todoService;
+    @Autowired
+    private TodoService todoService;
 
     //Get
     //localhost:2019/users/mine
@@ -57,6 +60,23 @@ public class UserController {
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+    //Post adds new todo
+    //localhost:2019/users/todo/{userid}
 
+    @PostMapping(value="/todo/{userid}",consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<?> addTodo(@Valid
+                                         @RequestBody Todo todo,
+                                     @PathVariable long userid){
+        todo.setUser(userService.findUserById(userid));
+        todo=todoService.save(todo);
+
+        return new ResponseEntity<>(todo,HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/users/userid/{userid}")
+    public ResponseEntity<?> removeUser(@PathVariable long userid){
+        userService.delete(userid);
+        return new ResponseEntity<>(null,HttpStatus.OK);
+    }
 
 }
