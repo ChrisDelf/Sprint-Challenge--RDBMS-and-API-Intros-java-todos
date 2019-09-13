@@ -70,6 +70,8 @@ public class TodoServiceImpl implements TodoService {
             newTodo.setUser(todo.getUser());
         if(todo.getDatestarted()!=null)
             newTodo.setDatestarted(todo.getDatestarted());
+        if(todo.isCompleted()!= null);
+            newTodo.setCompleted(todo.isCompleted());
         return todorepo.save(newTodo);
 
     }

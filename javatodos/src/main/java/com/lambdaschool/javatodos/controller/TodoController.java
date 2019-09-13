@@ -18,9 +18,13 @@ public class TodoController {
 
     //Put
     // localhost:2019/todos/todoid/{todoid}
-    @PutMapping(value="/todoid/{todoid}", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<?> editTodo(@Valid @RequestBody Todo todo, @PathVariable long todoid){
-        todo=todoService.update(todo,todoid);
+    @PutMapping(value = "/todoid/{todoid}",
+            consumes = {"application/json"},
+            produces = {"application/json"})
+    public ResponseEntity<?> updateTodo(@Valid
+                                      @RequestBody Todo todo,
+                                      @PathVariable long todoid) {
+        todo = todoService.update(todo, todoid);
         return new ResponseEntity<>(todo, HttpStatus.OK);
     }
 }
