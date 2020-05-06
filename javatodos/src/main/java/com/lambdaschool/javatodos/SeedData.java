@@ -1,13 +1,27 @@
-// provided by Vivek Vishwanath
+package com.lambdaschool.javatodos;
+
+import com.lambdaschool.javatodos.model.Role;
+import com.lambdaschool.javatodos.model.Todo;
+import com.lambdaschool.javatodos.model.User;
+import com.lambdaschool.javatodos.model.UserRoles;
+import com.lambdaschool.javatodos.repository.RoleRepository;
+import com.lambdaschool.javatodos.repository.TodoRepository;
+import com.lambdaschool.javatodos.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 @Transactional
 @Component
 public class SeedData implements CommandLineRunner {
     RoleRepository rolerepos;
     UserRepository userrepos;
-    ToDoRepository todorepos;
+    TodoRepository todorepos;
 
-    public SeedData(RoleRepository rolerepos, UserRepository userrepos, ToDoRepository todorepos) {
+    public SeedData(RoleRepository rolerepos, UserRepository userrepos, TodoRepository todorepos) {
         this.rolerepos = rolerepos;
         this.userrepos = userrepos;
         this.todorepos = todorepos;
